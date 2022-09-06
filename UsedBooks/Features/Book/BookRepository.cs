@@ -6,17 +6,16 @@ namespace UsedBooks.Repository.BookRepository;
 public class BookRepository:IBookRepository
 {
 
-    private readonly ApplicationDbContext _context;
-    public BookRepository( ApplicationDbContext context)
+    public ApplicationDbContext _context;
+    private readonly ILogger _logger;
+    public BookRepository( ApplicationDbContext context, ILogger logger)
     {
         _context = context;
+        _logger = logger;
     }
-    public void Register(Books applicant)
+    public void  Register(Books book)
     {
-       
-        
-        _context.Books.Add(applicant);
-        _context.SaveChanges();
+          _context.Books.Add(book);
     }
 
     public DepartmentsBooks GetById(int id)

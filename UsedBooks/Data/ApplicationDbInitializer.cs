@@ -21,7 +21,7 @@ public static class DbInitializer
             var admin = new ApplicationUser
             {
                 FirstName = "Admin",
-                LastName = "Strator",
+                LastName = "Jack",
                 UserName = "admin",
                 Email = "admin@mail.com",
                 Role = Role.Admin
@@ -32,10 +32,10 @@ public static class DbInitializer
             // Create user, username must be lowercase
             var user = new ApplicationUser
             {
-                FirstName = "Byamungu",
-                LastName = "Kabiraba",
-                UserName = "kaby",
-                Email = "kaby@mail.com",
+                FirstName = "Mohamed",
+                LastName = "Ali",
+                UserName = "Moha",
+                Email = "Moha@mail.com",
                 Role = Role.User
             };
             userManager.CreateAsync(user, "Password1.").Wait();

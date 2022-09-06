@@ -7,27 +7,32 @@ using UsedBooks.Features.Book;
 using UsedBooks.Features.User;
 using UsedBooks.Model;
 using UsedBooks.Repository.BookRepository;
+using UsedBooks.UnitOfWork;
 
 namespace UsedBooks.Controllers;
 
 [Route("api/v1")]
 public class BooksController:Controller
 {
-    private readonly IBookRepository _booksRepository;
+    private readonly IUnitOfWork _unitRepository;
     private readonly AppSettings _appSettings;
     private readonly UserManager<ApplicationUser> _userManager;
-    public BooksController( IBookRepository booksRepository,        IOptions<AppSettings> appSettings, UserManager<ApplicationUser> userManager)
+    public BooksController( IUnitOfWork unitRepository, IOptions<AppSettings> appSettings, UserManager<ApplicationUser> userManager)
     {
-        _booksRepository = booksRepository;
+        _unitRepository = unitRepository;
         _userManager = userManager;
         _appSettings = appSettings.Value;
     }
     
     [HttpPost("Books/")]
-    public IActionResult Register([FromBody] Books books)
+    public async Task<IActionResult> Register([FromBody]Books books)
     {
-        Console.Write("Hello world !");
-       _booksRepository.Register(books);
+        var owner = _userManager.FindByIdAsync(books.ApplicationUserId);
+      
+    
+        
+       _unitRepository._bookRepository.Register(books);
+       await  _unitRepository.CompletedAsync();
         return Ok();
     }
     

@@ -7,8 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using UsedBooks.Data;
 using UsedBooks.Features.User;
-using UsedBooks.Repository.BookRepository;
-
+using UsedBooks.UnitOfWork;
 namespace UsedBooks;
 
 public static class HostingExtensions
@@ -55,8 +54,8 @@ public static class HostingExtensions
                     ValidateAudience = false
                 };
             });
-        
-        builder.Services.AddScoped<IBookRepository, BookRepository>();
+
+        builder.Services.AddScoped<IUnitOfWork,Data.UnitOfWork>();
         /*builder.Services.AddScoped<IApplicationsRepository, ApplicationsRepository>();*/
 
         return builder.Build();
